@@ -19,6 +19,7 @@ import {
   CModalFooter,
   CModalBody,
   CSpinner,
+  CAlert,
 } from "@coreui/react";
 
 import api from "../../services/api";
@@ -53,12 +54,25 @@ const Users = () => {
   const [selectedUserId, setSelectedUserId] = useState("");
   const [countPages, setCountPages] = useState(1);
   const [loading, setLoading] = useState(true);
+  const [update, setUpdate] = useState(0);
+  const [showMessage, setShowMessage] = useState(false);
+  const [message, setMessage] = useState("");
 
   const pageChange = (newPage) => {
     currentPage !== newPage && history.push(`/users?page=${newPage}`);
   };
 
   const itemsPerPage = 5;
+
+  const handleShowMessage = (message) => {
+    setMessage(message);
+    setShowMessage(true);
+
+    setTimeout(() => {
+      setShowMessage(false);
+      setMessage("");
+    }, 3000);
+  };
 
   useEffect(() => {
     setLoading(true);
@@ -87,7 +101,7 @@ const Users = () => {
 
     getUsers();
     getStatusUsers();
-  }, []);
+  }, [update]);
 
   // calcula quantidade de paginas para o datatable
   const refreshCountPages = (data) => {
@@ -118,23 +132,32 @@ const Users = () => {
     setSearch(value);
   };
 
-  const handleInativateUser = () => {
-    //Altera status para inativado
-    const newList = completedListUsers.map((data) => {
-      if (Number(data.id) === Number(selectedUserId)) {
-        return {
-          ...data,
-          status: "Inactive",
-        };
+  const handleInativateUser = async () => {
+    const completUser = completedListUsers.filter(
+      (item) => Number(item.id) === Number(selectedUserId)
+    );
+
+    if (completUser.length) {
+      completUser[0].status = "Inactive";
+
+      //Altera status para inativado
+      const response = await api.put(
+        `/users/${selectedUserId}`,
+        completUser[0]
+      );
+      if (response.data) {
+        //Fecha o modal
+        toggleModal();
+
+        handleShowMessage("Usuário inativado com sucesso !!!");
+
+        //Atualiza lista completa de usuarios
+        setUpdate(update + 1);
       }
-      return data;
-    });
-
-    //Atualiza lista completa de usuarios
-    setCompletedListUsers(newList);
-
-    //Fecha o modal
-    toggleModal();
+    } else {
+      //Fecha o modal
+      toggleModal();
+    }
   };
 
   const toggleModal = () => {
@@ -256,6 +279,9 @@ const Users = () => {
                   doubleArrows={false}
                   align="center"
                 />
+                <CAlert show={showMessage} color="info" closeButton>
+                  {message}
+                </CAlert>
               </>
             ) : (
               <CFormGroup
