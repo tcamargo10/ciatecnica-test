@@ -6,7 +6,7 @@
       "lastname": "Mohamed",
       "fullname": "Chetan Mohamed",
       "registered": 1617295287622,
-      "profile": "Admin",
+      "profile": "Driver",
       "status": "Inactive",
       "username": "chetan.mohamed",
       "email": "Chetan.doe@gmail.com",
@@ -14,7 +14,7 @@
       "cel": "3333333333",
       "expire": false,
       "expireDate": null,
-      "company": "Company 3",
+      "company": "Company 2",
       "password": "",
       "password2": "",
       "select": "Pending"
@@ -25,15 +25,17 @@
       "lastname": "Maximinus",
       "fullname": "Derick Maximinus",
       "registered": 1617294870570,
-      "profile": "Member",
-      "status": "Pending",
+      "profile": "Owner",
+      "status": "Banned",
       "username": "derick.maximi",
       "email": "john.doe@gmail.com",
       "phone": "1232323232",
       "cel": "12329323232",
       "expire": false,
       "expireDate": null,
-      "company": "Company 2"
+      "company": "Company 1",
+      "password": "",
+      "password2": ""
     },
     {
       "id": 5,

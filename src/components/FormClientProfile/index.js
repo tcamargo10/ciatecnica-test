@@ -51,6 +51,7 @@ export default function FormClientProfile({
         handleBlur,
         handleSubmit,
         isSubmitting,
+        setFieldValue,
       }) => (
         <CCardBody>
           <Form onSubmit={handleSubmit} className="form-horizontal">
@@ -104,16 +105,19 @@ export default function FormClientProfile({
             </CFormGroup>
             <CFormGroup row>
               <CCol md="2" className="col-form-user">
-                <CLabel htmlFor="select">Profile</CLabel>
+                <CLabel htmlFor="profile">Profile</CLabel>
               </CCol>
               <CCol xs="5" md="3">
                 <CSelect
                   custom
-                  name="select"
+                  name="profile"
                   id="select-profile"
                   onBlur={handleBlur}
-                  onChange={handleChange}
                   value={values.profile}
+                  onChange={(e) => {
+                    const value = e.target.value || "";
+                    setFieldValue("profile", value);
+                  }}
                 >
                   <option value="">Select</option>
                   {listProfiles.map((data) => (
@@ -125,16 +129,19 @@ export default function FormClientProfile({
               </CCol>
 
               <CCol md="2" className="col-form-user">
-                <CLabel htmlFor="select">Company</CLabel>
+                <CLabel htmlFor="company">Company</CLabel>
               </CCol>
               <CCol xs="5" md="3">
                 <CSelect
                   custom
-                  name="select"
-                  id="select-profile2"
+                  name="company"
+                  id="select-company"
                   onBlur={handleBlur}
-                  onChange={handleChange}
                   value={values.company}
+                  onChange={(e) => {
+                    const value = e.target.value || "";
+                    setFieldValue("company", value);
+                  }}
                 >
                   <option value="">Select</option>
                   {listCompanies.map((data) => (

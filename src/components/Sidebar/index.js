@@ -41,10 +41,11 @@ const Sidebar = () => {
             alignItems: "center",
             justifyContent: "center",
             textAlign: "center",
+            cursor: "pointer",
           }}
         >
-          <label style={{ fontSize: 40 }}>cia</label>
-          <label style={{ fontSize: 22 }}>técnica</label>
+          <label style={{ fontSize: 40, cursor: "pointer" }}>cia</label>
+          <label style={{ fontSize: 22, cursor: "pointer" }}>técnica</label>
         </div>
         <CIcon
           className="c-sidebar-brand-minimized"

@@ -23,6 +23,7 @@ import "./styles.css";
 export default function FormClient({ user, usersStatus }) {
   const history = useHistory();
 
+  //Custom Input com MASK
   const CustomInput = (props) => (
     <InputMask {...props}>
       {(inputProps) => <CInput {...inputProps} />}
@@ -30,9 +31,11 @@ export default function FormClient({ user, usersStatus }) {
   );
 
   async function onSubmit(values, { setSubmitting }) {
+    //Retira espaços e caracteres especiais antes de enviar para a API
     values.phone = values.phone.replace(/\D/g, "");
     values.cel = values.cel.replace(/\D/g, "");
 
+    //Zera a senha pois nesse exemplo não salva a senha na API
     values.password = "";
     values.password2 = "";
 
@@ -282,8 +285,11 @@ export default function FormClient({ user, usersStatus }) {
                 <CSelect
                   custom
                   name="select"
-                  onChange={handleChange}
                   value={values.status}
+                  onChange={(e) => {
+                    const value = e.target.value || "";
+                    setFieldValue("status", value);
+                  }}
                 >
                   {usersStatus.map((data) => (
                     <option key={data.id} value={data.description}>
