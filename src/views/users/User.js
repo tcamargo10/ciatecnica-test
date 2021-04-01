@@ -20,18 +20,39 @@ import FormClientProfile from "../../components/FormClientProfile";
 
 const User = ({ match }) => {
   const [loading, setLoading] = useState(true);
-  const [user, setUser] = useState();
+  const [user, setUser] = useState(null);
   const [usersStatus, setUsersStatus] = useState([]);
+  const [listProfiles, setListProfiles] = useState([]);
+  const [listCompanies, setListCompanies] = useState([]);
 
   useEffect(() => {
     setLoading(true);
 
-    //Busca lista de usuarios na API
+    //Busca dados do usuario selecionado na API
     async function getUsers() {
       const response = await api.get(`/users/${match.params.id}`);
 
-      if (response.data) {
-        setUser(response.data);
+      if (match.params.id) {
+        if (response.data) {
+          setUser(response.data);
+        }
+      } else {
+        setUser({
+          id: "",
+          firstname: "",
+          lastname: "",
+          fullname: "",
+          profile: "",
+          registered: "",
+          status: "Active",
+          username: "",
+          email: "",
+          phone: "",
+          cel: "",
+          expire: false,
+          expireDate: null,
+          company: "",
+        });
       }
     }
 
@@ -42,10 +63,30 @@ const User = ({ match }) => {
       if (response.data) {
         setUsersStatus(response.data);
       }
+    }
+
+    //Busca lista de profiles na API
+    async function getProfiles() {
+      const response = await api.get(`/profiles`);
+
+      if (response.data) {
+        setListProfiles(response.data);
+      }
+    }
+
+    //busca lista de status na API
+    async function getCompanies() {
+      const response = await api.get(`/companies`);
+
+      if (response.data) {
+        setListCompanies(response.data);
+      }
 
       setLoading(false);
     }
 
+    getProfiles();
+    getCompanies();
     getUsers();
     getStatusUsers();
   }, [match.params.id]);
@@ -71,7 +112,11 @@ const User = ({ match }) => {
                     <FormClient user={user} usersStatus={usersStatus} />
                   </CTabPane>
                   <CTabPane data-tab="profile">
-                    <FormClientProfile user={user} usersStatus={usersStatus} />
+                    <FormClientProfile
+                      user={user}
+                      listProfiles={listProfiles}
+                      listCompanies={listCompanies}
+                    />
                   </CTabPane>
                 </CTabContent>
               </CTabs>

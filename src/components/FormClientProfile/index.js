@@ -14,7 +14,11 @@ import { useHistory } from "react-router-dom";
 
 import "./styles.css";
 
-export default function FormClientProfile({ user, usersStatus }) {
+export default function FormClientProfile({
+  user,
+  listProfiles,
+  listCompanies,
+}) {
   const history = useHistory();
 
   return (
@@ -30,19 +34,23 @@ export default function FormClientProfile({ user, usersStatus }) {
             <CLabel htmlFor="text-input">Username*</CLabel>
           </CCol>
           <CCol xs="12" md="8">
-            <CInput required id="text-input" name="text-input" />
+            <CInput
+              required
+              id="profile-username-input"
+              name="profile-username-input"
+            />
             <CFormText>This is a help text</CFormText>
           </CCol>
         </CFormGroup>
         <CFormGroup row>
           <CCol md="2" className="col-form-user">
-            <CLabel htmlFor="email-input">Full name*</CLabel>
+            <CLabel htmlFor="profile-fullname-input">Full name*</CLabel>
           </CCol>
           <CCol xs="6" md="4">
             <CInput
               required
-              id="first-input"
-              name="first-input"
+              id="profile-first-input"
+              name="profile-first-input"
               placeholder="First name"
             />
             <CFormText className="help-block">
@@ -52,8 +60,8 @@ export default function FormClientProfile({ user, usersStatus }) {
           <CCol xs="6" md="4">
             <CInput
               required
-              id="last-input"
-              name="last-input"
+              id="profile-last-input"
+              name="profile-last-input"
               placeholder="Last name"
             />
             <CFormText className="help-block">
@@ -66,9 +74,9 @@ export default function FormClientProfile({ user, usersStatus }) {
             <CLabel htmlFor="select">Profile</CLabel>
           </CCol>
           <CCol xs="5" md="3">
-            <CSelect custom name="select" id="select">
+            <CSelect custom name="select" id="select-profile">
               <option value="">Select</option>
-              {usersStatus.map((data) => (
+              {listProfiles.map((data) => (
                 <option key={data.id} value={data.description}>
                   {data.description}
                 </option>
@@ -80,9 +88,9 @@ export default function FormClientProfile({ user, usersStatus }) {
             <CLabel htmlFor="select">Company</CLabel>
           </CCol>
           <CCol xs="5" md="3">
-            <CSelect custom name="select" id="select">
+            <CSelect custom name="select" id="select-profile2">
               <option value="">Select</option>
-              {usersStatus.map((data) => (
+              {listCompanies.map((data) => (
                 <option key={data.id} value={data.description}>
                   {data.description}
                 </option>
@@ -104,14 +112,13 @@ export default function FormClientProfile({ user, usersStatus }) {
             }}
           >
             <CButton
-              size="lg"
               color="danger"
               className="m-2"
-              onClick={() => history.push("/users")}
+              onClick={() => history.push("/users?page=1")}
             >
               Cancel
             </CButton>
-            <CButton size="lg" color="primary" className="m-2">
+            <CButton color="primary" className="m-2">
               Save
             </CButton>
           </CCol>
@@ -120,10 +127,3 @@ export default function FormClientProfile({ user, usersStatus }) {
     </CCardBody>
   );
 }
-<CInput
-  type="password"
-  id="password-input"
-  name="password-input"
-  placeholder="Password"
-  autoComplete="new-password"
-/>;

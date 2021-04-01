@@ -51,7 +51,7 @@ const Users = () => {
   const [selectedStatus, setSelectedStatus] = useState("");
   const [modal, setModal] = useState(false);
   const [selectedUserId, setSelectedUserId] = useState("");
-  const [countPages, setCountPages] = useState(0);
+  const [countPages, setCountPages] = useState(1);
   const [loading, setLoading] = useState(true);
 
   const pageChange = (newPage) => {
@@ -200,7 +200,7 @@ const Users = () => {
                   fields={[
                     { key: "fullname", _classes: "font-weight-bold" },
                     "username",
-                    "role",
+                    "profile",
                     "status",
                     "actions",
                   ]}
