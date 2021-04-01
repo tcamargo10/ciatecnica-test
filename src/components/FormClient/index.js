@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Form, Formik } from "formik";
 import { useHistory } from "react-router-dom";
 import InputMask from "react-input-mask";
@@ -13,6 +13,7 @@ import {
   CLabel,
   CSelect,
   CButton,
+  CAlert,
 } from "@coreui/react";
 
 import api from "../../services/api";
@@ -22,6 +23,19 @@ import "./styles.css";
 
 export default function FormClient({ user, usersStatus }) {
   const history = useHistory();
+
+  const [showMessage, setShowMessage] = useState(false);
+  const [message, setMessage] = useState("");
+
+  const handleShowMessage = (message) => {
+    setMessage(message);
+    setShowMessage(true);
+
+    setTimeout(() => {
+      setShowMessage(false);
+      setMessage("");
+    }, 3000);
+  };
 
   //Custom Input com MASK
   const CustomInput = (props) => (
@@ -43,8 +57,8 @@ export default function FormClient({ user, usersStatus }) {
       //usuário ja existe envia com method PUT
       const response = await api.put(`/users/${values.id}`, values);
       if (response.data) {
-        alert("Usuário atualizado com sucesso !!!");
         setSubmitting(false);
+        handleShowMessage("Usuário atualizado com sucesso !!!");
       }
     } else {
       //usuário não existe envia com method POST
@@ -334,6 +348,9 @@ export default function FormClient({ user, usersStatus }) {
               </CCol>
             </CFormGroup>
           </Form>
+          <CAlert show={showMessage} color="info" closeButton>
+            {message}
+          </CAlert>
         </CCardBody>
       )}
     </Formik>

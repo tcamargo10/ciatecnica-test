@@ -65,7 +65,7 @@ const Users = () => {
 
     //Busca lista de usuarios na API
     async function getUsers() {
-      const response = await api.get(`/users`);
+      const response = await api.get(`/users/?_sort=id&_order=desc`);
 
       if (response.data) {
         setCompletedListUsers(response.data);
