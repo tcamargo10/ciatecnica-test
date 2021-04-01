@@ -18,6 +18,7 @@ import {
   CModal,
   CModalFooter,
   CModalBody,
+  CSpinner,
 } from "@coreui/react";
 
 import api from "../../services/api";
@@ -257,7 +258,12 @@ const Users = () => {
                 row
                 style={{ alignItems: "center", justifyContent: "center" }}
               >
-                <div>...loading</div>
+                <div className="d-flex justify-content-between align-items-center">
+                  <CSpinner
+                    color="primary"
+                    style={{ width: "2rem", height: "2rem" }}
+                  />
+                </div>
               </CFormGroup>
             )}
           </CCardBody>

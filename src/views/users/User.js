@@ -9,6 +9,7 @@ import {
   CNavItem,
   CNavLink,
   CRow,
+  CSpinner,
   CTabContent,
   CTabPane,
   CTabs,
@@ -79,7 +80,12 @@ const User = ({ match }) => {
                 row
                 style={{ alignItems: "center", justifyContent: "center" }}
               >
-                <div>...loading</div>
+                <div className="d-flex justify-content-between align-items-center">
+                  <CSpinner
+                    color="primary"
+                    style={{ width: "2rem", height: "2rem" }}
+                  />
+                </div>
               </CFormGroup>
             )}
           </CCardBody>
