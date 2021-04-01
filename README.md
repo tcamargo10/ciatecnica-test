@@ -25,7 +25,7 @@ for more information at JSON Server:
 Use command yarn start or npm start for run the app.
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-### `Production`
+### `Deploy for Production`
 
 Use command yarn build or npm build for compile application for production.
 the result is folder 'dist', that you can publish on your preferred server.
@@ -36,4 +36,4 @@ Thiago Camargo
 
 [https://thiago.camargocodes.com]
 
-[httrps://linkedin.com/in/thiagorcamargo]
+[https://linkedin.com/in/thiagorcamargo]
