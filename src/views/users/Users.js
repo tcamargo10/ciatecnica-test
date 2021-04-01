@@ -152,7 +152,11 @@ const Users = () => {
               <>
                 <CFormGroup row style={{ alignItems: "center" }}>
                   <CCol md="3">
-                    <CButton color="primary" className="m-2">
+                    <CButton
+                      color="primary"
+                      className="m-2"
+                      onClick={() => history.push("/newuser")}
+                    >
                       + Add
                     </CButton>
                   </CCol>
@@ -248,7 +252,7 @@ const Users = () => {
                 <CPagination
                   activePage={page}
                   onActivePageChange={pageChange}
-                  pages={Number(countPages)}
+                  pages={Number(countPages) === 0 ? 1 : Number(countPages)}
                   doubleArrows={false}
                   align="center"
                 />

@@ -14,6 +14,7 @@ import {
   CButton,
 } from "@coreui/react";
 
+import api from "../../services/api";
 import { Form } from "formik";
 
 import FormClientErrors from "./Errors";
@@ -22,16 +23,26 @@ import "./styles.css";
 export default function FormClient({ user, usersStatus }) {
   const history = useHistory();
 
-  function onSubmit(values, { setSubmitting }) {
+  async function onSubmit(values, { setSubmitting }) {
     values.registered = Date.now();
     values.fullname = `${values.firstname} ${values.lastname}`;
-    values.id = Math.floor(Math.random() * 100);
 
-    alert("Salvo");
-    console.log(values);
-    setSubmitting(false);
-
-    history.push(`/users/${values.id}`);
+    if (values.id !== "") {
+      //usuário ja existe envia com method PUT
+      const response = await api.put(`/users/${values.id}`, values);
+      if (response.data) {
+        alert("Usuário atualizado com sucesso !!!");
+        setSubmitting(false);
+      }
+    } else {
+      //usuário não existe envia com method POST
+      const response = await api.post(`/users`, values);
+      if (response.data) {
+        alert("Novo usuário salvo com sucesso !!!");
+        setSubmitting(false);
+        history.push(`/users/${values.id}`);
+      }
+    }
   }
 
   if (user === null) {

@@ -9,6 +9,7 @@ const routes = [
   { path: "/dashboard", name: "Dashboard", component: Dashboard },
   { path: "/users", exact: true, name: "Users", component: Users },
   { path: "/users/:id", exact: true, name: "User Details", component: User },
+  { path: "/newuser", exact: true, name: "New User", component: User },
 ];
 
 export default routes;

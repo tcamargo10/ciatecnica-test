@@ -31,9 +31,5 @@ export default function FormClientErrors(values) {
     errors.status = "Required";
   }
 
-  console.log("errors");
-  console.log(errors);
-  console.log("values");
-  console.log(values);
   return errors;
 }
