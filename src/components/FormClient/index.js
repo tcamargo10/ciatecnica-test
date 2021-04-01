@@ -1,6 +1,7 @@
 import React from "react";
 import { Form, Formik } from "formik";
 import { useHistory } from "react-router-dom";
+import InputMask from "react-input-mask";
 
 import {
   CCardBody,
@@ -22,7 +23,16 @@ import "./styles.css";
 export default function FormClient({ user, usersStatus }) {
   const history = useHistory();
 
+  const CustomInput = (props) => (
+    <InputMask {...props}>
+      {(inputProps) => <CInput {...inputProps} />}
+    </InputMask>
+  );
+
   async function onSubmit(values, { setSubmitting }) {
+    values.phone = values.phone.replace(/\D/g, "");
+    values.cel = values.cel.replace(/\D/g, "");
+
     values.password = "";
     values.password2 = "";
 
@@ -67,6 +77,7 @@ export default function FormClient({ user, usersStatus }) {
         handleBlur,
         handleSubmit,
         isSubmitting,
+        setFieldValue,
       }) => (
         <CCardBody>
           <Form onSubmit={handleSubmit} className="form-horizontal">
@@ -139,13 +150,14 @@ export default function FormClient({ user, usersStatus }) {
                 <CLabel htmlFor="password-input">Phone Number</CLabel>
               </CCol>
               <CCol xs="5" md="3">
-                <CInput
-                  type="number"
+                <CustomInput
+                  mask="(99) 99999-9999"
                   name="phone"
-                  placeholder="(00) 0000-0000"
-                  onBlur={handleBlur}
-                  onChange={handleChange}
                   value={values.phone}
+                  onChange={(e) => {
+                    const value = e.target.value || "";
+                    setFieldValue("phone", value);
+                  }}
                 />
                 <CFormText color="danger">
                   {touched.phone && errors.phone}
@@ -155,13 +167,14 @@ export default function FormClient({ user, usersStatus }) {
                 <CLabel htmlFor="password-input">Mobile Number*</CLabel>
               </CCol>
               <CCol xs="5" md="3">
-                <CInput
-                  type="number"
+                <CustomInput
+                  mask="(99) 9999-9999"
                   name="cel"
-                  placeholder="(00) 00000-0000"
-                  onBlur={handleBlur}
-                  onChange={handleChange}
                   value={values.cel}
+                  onChange={(e) => {
+                    const value = e.target.value || "";
+                    setFieldValue("cel", value);
+                  }}
                 />
                 <CFormText color="danger">
                   {touched.cel && errors.cel}
@@ -214,8 +227,10 @@ export default function FormClient({ user, usersStatus }) {
                     id="inline-radio1"
                     name="expire"
                     onBlur={handleBlur}
-                    onChange={handleChange}
                     checked={values.expire}
+                    onChange={(e) => {
+                      setFieldValue("expire", true);
+                    }}
                   />
                   <CLabel variant="custom-checkbox" htmlFor="inline-radio1">
                     Yes
@@ -226,8 +241,11 @@ export default function FormClient({ user, usersStatus }) {
                     custom
                     id="inline-radio2"
                     name="expire"
-                    onChange={handleChange}
                     checked={!values.expire}
+                    onChange={(e) => {
+                      setFieldValue("expire", false);
+                      setFieldValue("expireDate", null);
+                    }}
                   />
                   <CLabel variant="custom-checkbox" htmlFor="inline-radio2">
                     Never
