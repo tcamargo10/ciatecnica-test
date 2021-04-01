@@ -1,5 +1,5 @@
 import React from "react";
-import { Formik } from "formik";
+import { Form, Formik } from "formik";
 import { useHistory } from "react-router-dom";
 
 import {
@@ -15,7 +15,6 @@ import {
 } from "@coreui/react";
 
 import api from "../../services/api";
-import { Form } from "formik";
 
 import FormClientErrors from "./Errors";
 import "./styles.css";
@@ -24,8 +23,8 @@ export default function FormClient({ user, usersStatus }) {
   const history = useHistory();
 
   async function onSubmit(values, { setSubmitting }) {
-    values.registered = Date.now();
-    values.fullname = `${values.firstname} ${values.lastname}`;
+    values.password = "";
+    values.password2 = "";
 
     if (values.id !== "") {
       //usuário ja existe envia com method PUT
@@ -36,6 +35,9 @@ export default function FormClient({ user, usersStatus }) {
       }
     } else {
       //usuário não existe envia com method POST
+      values.registered = Date.now();
+      values.fullname = `${values.firstname} ${values.lastname}`;
+
       const response = await api.post(`/users`, values);
       if (response.data) {
         alert("Novo usuário salvo com sucesso !!!");

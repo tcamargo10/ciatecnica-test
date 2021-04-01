@@ -10,11 +10,14 @@
       "status": "Inactive",
       "username": "chetan.mohamed",
       "email": "Chetan.doe@gmail.com",
-      "phone": 1,
+      "phone": 123123,
       "cel": "12329323232",
       "expire": "on",
       "expireDate": "2021-04-01",
-      "company": "Company 3"
+      "company": "Company 3",
+      "password": "",
+      "password2": "",
+      "select": "Pending"
     },
     {
       "id": 4,

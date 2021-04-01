@@ -23,6 +23,10 @@ export default function FormClientErrors(values) {
     errors.cel = "Required";
   }
 
+  if (values.password !== values.password2) {
+    errors.password2 = "Password and confirm the password must be the same";
+  }
+
   if (values.expire && !values.expireDate) {
     errors.expireDate = "Required";
   }
