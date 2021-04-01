@@ -8,8 +8,7 @@ const NavItems = [
     to: "/dashboard",
     icon: (
       <>
-        <i className="cil-speedometer" style={{ fontSize: 17 }}></i>
-        <CIcon customClasses="c-sidebar-nav-icon" />
+        <CIcon name="cil-speedometer" customClasses="c-sidebar-nav-icon" />
       </>
     ),
   },
@@ -21,7 +20,7 @@ const NavItems = [
     _tag: "CSidebarNavItem",
     name: "Usuários",
     to: "/users",
-    icon: "cil-pencil",
+    icon: "cil-user",
   },
   {
     _tag: "CSidebarNavDivider",

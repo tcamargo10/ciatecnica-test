@@ -7,7 +7,7 @@ import {
   CImg,
 } from "@coreui/react";
 
-import { CIcon } from "@coreui/icons-react";
+import CIcon from "@coreui/icons-react";
 
 const HeaderDropdown = () => {
   return (
@@ -23,8 +23,7 @@ const HeaderDropdown = () => {
         </CDropdownItem>
 
         <CDropdownItem>
-          <i className="cil-account-logout"></i>
-          <CIcon />
+          <CIcon name="cil-account-logout" className="mfe-2" />
           Logout
         </CDropdownItem>
       </CDropdownMenu>

@@ -21,6 +21,7 @@ import {
 } from "@coreui/react";
 
 import api from "../../services/api";
+import CIcon from "@coreui/icons-react";
 
 const getBadge = (status) => {
   switch (status) {
@@ -210,7 +211,7 @@ const Users = () => {
                         style={{ cursor: "pointer" }}
                         onClick={() => history.push(`/users/${item.id}`)}
                       >
-                        <i className="cil-pencil"></i>
+                        <CIcon name={"cil-pencil"} />
                       </div>
                       <div
                         style={{ cursor: "pointer", marginLeft: 15 }}
@@ -219,7 +220,7 @@ const Users = () => {
                           toggleModal();
                         }}
                       >
-                        <i className="cil-trash"></i>
+                        <CIcon name="cil-trash" />
                       </div>
                     </div>
                   </td>
