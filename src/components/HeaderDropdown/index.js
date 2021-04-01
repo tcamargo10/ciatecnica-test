@@ -23,7 +23,7 @@ const HeaderDropdown = () => {
         </CDropdownItem>
 
         <CDropdownItem>
-          <i class="cil-account-logout"></i>
+          <i className="cil-account-logout"></i>
           <CIcon />
           Logout
         </CDropdownItem>

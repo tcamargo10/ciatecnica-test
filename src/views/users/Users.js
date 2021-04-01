@@ -20,7 +20,7 @@ import {
   CModalBody,
 } from "@coreui/react";
 
-import { usersData, usersStatus } from "./UsersData";
+import api from "../../services/api";
 
 const getBadge = (status) => {
   switch (status) {
@@ -44,6 +44,7 @@ const Users = () => {
   const [page, setPage] = useState(currentPage);
   const [completedListUsers, setCompletedListUsers] = useState([]);
   const [listUsers, setListUsers] = useState([]);
+  const [usersStatus, setUsersStatus] = useState([]);
   const [search, setSearch] = useState("");
   const [selectedStatus, setSelectedStatus] = useState("");
   const [modal, setModal] = useState(false);
@@ -56,8 +57,23 @@ const Users = () => {
   const itemsPerPage = 5;
 
   useEffect(() => {
-    setCompletedListUsers(usersData);
-    setListUsers(usersData);
+    //Busca lista de usuarios na API
+    async function getUsers() {
+      const response = await api.get(`/users`);
+
+      setCompletedListUsers(response.data);
+      setListUsers(response.data);
+    }
+
+    //busca lista de status na API
+    async function getStatusUsers() {
+      const response = await api.get(`/statususers`);
+
+      setUsersStatus(response.data);
+    }
+
+    getUsers();
+    getStatusUsers();
   }, []);
 
   useEffect(() => {
@@ -119,7 +135,7 @@ const Users = () => {
           <CCardBody>
             <CFormGroup row style={{ alignItems: "center" }}>
               <CCol md="3">
-                <CButton color="primary" size={20} className="m-2">
+                <CButton color="primary" className="m-2">
                   + Add
                 </CButton>
               </CCol>
@@ -146,7 +162,7 @@ const Users = () => {
                       ))}
                     </CSelect>
                   </CCol>
-                  <i style={{ fontSize: 16 }} class="cil-filter"></i>
+                  <i style={{ fontSize: 16 }} className="cil-filter"></i>
                 </CFormGroup>
               </CCol>
 
@@ -194,7 +210,7 @@ const Users = () => {
                         style={{ cursor: "pointer" }}
                         onClick={() => history.push(`/users/${item.id}`)}
                       >
-                        <i class="cil-pencil"></i>
+                        <i className="cil-pencil"></i>
                       </div>
                       <div
                         style={{ cursor: "pointer", marginLeft: 15 }}
@@ -203,7 +219,7 @@ const Users = () => {
                           toggleModal();
                         }}
                       >
-                        <i class="cil-trash"></i>
+                        <i className="cil-trash"></i>
                       </div>
                     </div>
                   </td>

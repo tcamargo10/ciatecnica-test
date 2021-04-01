@@ -8,7 +8,7 @@ const NavItems = [
     to: "/dashboard",
     icon: (
       <>
-        <i class="cil-speedometer" style={{ fontSize: 17 }}></i>
+        <i className="cil-speedometer" style={{ fontSize: 17 }}></i>
         <CIcon customClasses="c-sidebar-nav-icon" />
       </>
     ),
