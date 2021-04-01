@@ -1,0 +1,9 @@
+.col-form-user {
+  text-align: end;
+}
+
+@media (max-width: 775px) {
+  .col-form-user {
+    text-align: start;
+  }
+}

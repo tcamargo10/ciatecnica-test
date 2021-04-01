@@ -25,13 +25,13 @@ import CIcon from "@coreui/icons-react";
 
 const getBadge = (status) => {
   switch (status) {
-    case "Ativo":
+    case "Active":
       return "success";
-    case "Inativo":
+    case "Inactive":
       return "secondary";
-    case "Pendente":
+    case "Pending":
       return "warning";
-    case "Banido":
+    case "Banned":
       return "danger";
     default:
       return "primary";
@@ -50,6 +50,8 @@ const Users = () => {
   const [selectedStatus, setSelectedStatus] = useState("");
   const [modal, setModal] = useState(false);
   const [selectedUserId, setSelectedUserId] = useState("");
+  const [countPages, setCountPages] = useState(0);
+  const [loading, setLoading] = useState(true);
 
   const pageChange = (newPage) => {
     currentPage !== newPage && history.push(`/users?page=${newPage}`);
@@ -58,24 +60,54 @@ const Users = () => {
   const itemsPerPage = 5;
 
   useEffect(() => {
+    setLoading(true);
+
     //Busca lista de usuarios na API
     async function getUsers() {
       const response = await api.get(`/users`);
 
-      setCompletedListUsers(response.data);
-      setListUsers(response.data);
+      if (response.data) {
+        setCompletedListUsers(response.data);
+        setListUsers(response.data);
+        refreshCountPages(response.data);
+      }
     }
 
     //busca lista de status na API
     async function getStatusUsers() {
       const response = await api.get(`/statususers`);
 
-      setUsersStatus(response.data);
+      if (response.data) {
+        setUsersStatus(response.data);
+      }
+
+      setLoading(false);
     }
 
     getUsers();
     getStatusUsers();
   }, []);
+
+  // calcula quantidade de paginas para o datatable
+  const refreshCountPages = (data) => {
+    setCountPages(Math.ceil(data.length / itemsPerPage));
+  };
+
+  useEffect(() => {
+    //filtra os usuarios pelo status selecionado
+    if (selectedStatus === "") {
+      setListUsers(completedListUsers);
+      refreshCountPages(completedListUsers);
+    } else {
+      let newList = completedListUsers.filter(
+        (item) => item.status === selectedStatus
+      );
+      setListUsers(newList);
+
+      //atualiza quantidade de paginas
+      refreshCountPages(newList);
+    }
+  }, [completedListUsers, selectedStatus]);
 
   useEffect(() => {
     currentPage !== page && setPage(currentPage);
@@ -85,39 +117,20 @@ const Users = () => {
     setSearch(value);
   };
 
-  const handleFilterStatus = (value) => {
-    setSelectedStatus(value);
-
-    //retorna para a pagina 1
-    pageChange(1);
-
-    //filtra os usuarios pelo status selecionado
-    if (value === "") {
-      setListUsers(completedListUsers);
-    } else {
-      let newList = completedListUsers.filter((item) => item.status === value);
-      setListUsers(newList);
-    }
-  };
-
   const handleInativateUser = () => {
     //Altera status para inativado
     const newList = completedListUsers.map((data) => {
       if (Number(data.id) === Number(selectedUserId)) {
-        const updatedItem = {
+        return {
           ...data,
-          status: "Inativo",
+          status: "Inactive",
         };
-        return updatedItem;
       }
       return data;
     });
 
     //Atualiza lista completa de usuarios
     setCompletedListUsers(newList);
-
-    //Atualiza lista de usuarios que é exibida no datatable
-    handleFilterStatus(selectedStatus);
 
     //Fecha o modal
     toggleModal();
@@ -134,106 +147,119 @@ const Users = () => {
         <CCard>
           <CCardHeader>Usuários</CCardHeader>
           <CCardBody>
-            <CFormGroup row style={{ alignItems: "center" }}>
-              <CCol md="3">
-                <CButton color="primary" className="m-2">
-                  + Add
-                </CButton>
-              </CCol>
-
-              <CCol md="4" style={{ alignItems: "center" }}>
-                <CFormGroup row style={{ alignItems: "center", margin: 0 }}>
-                  <CLabel htmlFor="selectLg" style={{ margin: 0 }}>
-                    Status
-                  </CLabel>
-                  <CCol xs="12" md="9" size="lg">
-                    <CSelect
-                      custom
-                      size="md"
-                      name="selectLg"
-                      id="selectLg"
-                      value={selectedStatus}
-                      onChange={(e) => handleFilterStatus(e.target.value)}
-                    >
-                      <option value="">Selecione</option>
-                      {usersStatus.map((data) => (
-                        <option key={data.id} value={data.description}>
-                          {data.description}
-                        </option>
-                      ))}
-                    </CSelect>
+            {!loading ? (
+              <>
+                <CFormGroup row style={{ alignItems: "center" }}>
+                  <CCol md="3">
+                    <CButton color="primary" className="m-2">
+                      + Add
+                    </CButton>
                   </CCol>
-                  <i style={{ fontSize: 16 }} className="cil-filter"></i>
+
+                  <CCol md="4" style={{ alignItems: "center" }}>
+                    <CFormGroup row style={{ alignItems: "center", margin: 0 }}>
+                      <CLabel htmlFor="selectLg" style={{ margin: 0 }}>
+                        Status
+                      </CLabel>
+                      <CCol xs="12" md="9" size="lg">
+                        <CSelect
+                          custom
+                          size="md"
+                          name="selectLg"
+                          id="selectLg"
+                          value={selectedStatus}
+                          onChange={(e) => setSelectedStatus(e.target.value)}
+                        >
+                          <option value="">Select</option>
+                          {usersStatus.map((data) => (
+                            <option key={data.id} value={data.description}>
+                              {data.description}
+                            </option>
+                          ))}
+                        </CSelect>
+                      </CCol>
+                      <i style={{ fontSize: 16 }} className="cil-filter"></i>
+                    </CFormGroup>
+                  </CCol>
+
+                  <CCol md="5">
+                    <CInput
+                      type="text"
+                      id="text-search"
+                      name="txt-search"
+                      placeholder="Search..."
+                      value={search}
+                      onChange={(e) => handleSearch(e.target.value)}
+                    />
+                  </CCol>
                 </CFormGroup>
-              </CCol>
 
-              <CCol md="5">
-                <CInput
-                  type="text"
-                  id="text-search"
-                  name="txt-search"
-                  placeholder="Search..."
-                  value={search}
-                  onChange={(e) => handleSearch(e.target.value)}
+                <CDataTable
+                  items={listUsers}
+                  fields={[
+                    { key: "fullname", _classes: "font-weight-bold" },
+                    "username",
+                    "role",
+                    "status",
+                    "actions",
+                  ]}
+                  hover
+                  striped
+                  itemsPerPage={itemsPerPage}
+                  activePage={page}
+                  scopedSlots={{
+                    status: (item) => (
+                      <td>
+                        <CBadge color={getBadge(item.status)}>
+                          {item.status}
+                        </CBadge>
+                      </td>
+                    ),
+                    actions: (item) => (
+                      <td>
+                        <div
+                          style={{
+                            display: "flex",
+                            fontSize: 17,
+                            alignItems: "center",
+                          }}
+                        >
+                          <div
+                            style={{ cursor: "pointer" }}
+                            onClick={() => history.push(`/users/${item.id}`)}
+                          >
+                            <CIcon name={"cil-pencil"} />
+                          </div>
+                          <div
+                            style={{ cursor: "pointer", marginLeft: 15 }}
+                            onClick={() => {
+                              setSelectedUserId(item.id);
+                              toggleModal();
+                            }}
+                          >
+                            <CIcon name="cil-trash" />
+                          </div>
+                        </div>
+                      </td>
+                    ),
+                  }}
                 />
-              </CCol>
-            </CFormGroup>
-
-            <CDataTable
-              items={listUsers}
-              fields={[
-                { key: "name", _classes: "font-weight-bold" },
-                "username",
-                "role",
-                "status",
-                "actions",
-              ]}
-              hover
-              striped
-              itemsPerPage={itemsPerPage}
-              activePage={page}
-              scopedSlots={{
-                status: (item) => (
-                  <td>
-                    <CBadge color={getBadge(item.status)}>{item.status}</CBadge>
-                  </td>
-                ),
-                actions: (item) => (
-                  <td>
-                    <div
-                      style={{
-                        display: "flex",
-                        fontSize: 17,
-                        alignItems: "center",
-                      }}
-                    >
-                      <div
-                        style={{ cursor: "pointer" }}
-                        onClick={() => history.push(`/users/${item.id}`)}
-                      >
-                        <CIcon name={"cil-pencil"} />
-                      </div>
-                      <div
-                        style={{ cursor: "pointer", marginLeft: 15 }}
-                        onClick={() => {
-                          setSelectedUserId(item.id);
-                          toggleModal();
-                        }}
-                      >
-                        <CIcon name="cil-trash" />
-                      </div>
-                    </div>
-                  </td>
-                ),
-              }}
-            />
-            <CPagination
-              activePage={page}
-              onActivePageChange={pageChange}
-              pages={5}
-              doubleArrows={false}
-              align="center"
-            />
+                <CPagination
+                  activePage={page}
+                  onActivePageChange={pageChange}
+                  pages={Number(countPages)}
+                  doubleArrows={false}
+                  align="center"
+                />
+              </>
+            ) : (
+              <CFormGroup
+                row
+                style={{ alignItems: "center", justifyContent: "center" }}
+              >
+                <div>...loading</div>
+              </CFormGroup>
+            )}
           </CCardBody>
         </CCard>
       </CCol>

@@ -2,213 +2,250 @@
   "users": [
     {
       "id": 0,
-      "name": "John Doe",
+      "name": "John",
+      "lastname": "Doe",
+      "fullname": "John Doe",
       "registered": "2018/01/01",
-      "role": "Convidado",
-      "status": "Pendente",
-      "username": "john.doe"
+      "role": "Guest",
+      "status": "Pending",
+      "username": "john.doe",
+      "email": "john.doe@gmail.com",
+      "phone": "1232323232",
+      "cel": "12329323232",
+      "expire": false,
+      "expireDate": null,
+      "company": "Company 1",
+      "Profile": "Owner"
     },
     {
       "id": 1,
-      "name": "Samppa Nori",
+      "fullname": "Samppa Nori",
       "registered": "2018/01/01",
-      "role": "Membro",
-      "status": "Ativo",
+      "role": "Member",
+      "status": "Active",
       "username": "samppa.nori"
     },
     {
       "id": 2,
-      "name": "Estavan Lykos",
+      "fullname": "Estavan Lykos",
       "registered": "2018/02/01",
       "role": "Staff",
-      "status": "Banido",
+      "status": "Banned",
       "username": "estavan.lykos"
     },
     {
       "id": 3,
-      "name": "Chetan Mohamed",
+      "fullname": "Chetan Mohamed",
       "registered": "2018/02/01",
       "role": "Admin",
-      "status": "Inativo",
+      "status": "Inactive",
       "username": "chetan.mohamed"
     },
     {
       "id": 4,
-      "name": "Derick Maximinus",
+      "fullname": "Derick Maximinus",
       "registered": "2018/03/01",
-      "role": "Membro",
-      "status": "Pendente",
+      "role": "Member",
+      "status": "Pending",
       "username": "derick.maximinus"
     },
     {
       "id": 5,
-      "name": "Friderik Dávid",
+      "fullname": "Friderik Dávid",
       "registered": "2018/01/21",
       "role": "Staff",
-      "status": "Ativo",
+      "status": "Active",
       "username": "friderik.dávid"
     },
     {
       "id": 6,
-      "name": "Yiorgos Avraamu",
+      "fullname": "Yiorgos Avraamu",
       "registered": "2018/01/01",
-      "role": "Membro",
-      "status": "Ativo",
+      "role": "Member",
+      "status": "Active",
       "username": "yiorgos.avraamu"
     },
     {
       "id": 7,
-      "name": "Avram Tarasios",
+      "fullname": "Avram Tarasios",
       "registered": "2018/02/01",
       "role": "Staff",
-      "status": "Banido",
+      "status": "Banned",
       "username": "avram.tarasios"
     },
     {
       "id": 8,
-      "name": "Quintin Ed",
+      "fullname": "Quintin Ed",
       "registered": "2018/02/01",
       "role": "Admin",
-      "status": "Inativo",
+      "status": "Inactive",
       "username": "quintin.ed"
     },
     {
       "id": 9,
-      "name": "Enéas Kwadwo",
+      "fullname": "Enéas Kwadwo",
       "registered": "2018/03/01",
-      "role": "Membro",
-      "status": "Pendente",
+      "role": "Member",
+      "status": "Pending",
       "username": "enéas.kwadwo"
     },
     {
       "id": 10,
-      "name": "Agapetus Tadeás",
+      "fullname": "Agapetus Tadeás",
       "registered": "2018/01/21",
       "role": "Staff",
-      "status": "Ativo",
+      "status": "Active",
       "username": "Agapetus.tadeás"
     },
     {
       "id": 11,
-      "name": "Carwyn Fachtna",
+      "fullname": "Carwyn Fachtna",
       "registered": "2018/01/01",
-      "role": "Membro",
-      "status": "Ativo",
+      "role": "Member",
+      "status": "Active",
       "username": "carwyn.fachtna"
     },
     {
       "id": 12,
-      "name": "Nehemiah Tatius",
+      "fullname": "Nehemiah Tatius",
       "registered": "2018/02/01",
       "role": "Staff",
-      "status": "Banido",
+      "status": "Banned",
       "username": "nehemiah.tatius"
     },
     {
       "id": 13,
-      "name": "Ebbe Gemariah",
+      "fullname": "Ebbe Gemariah",
       "registered": "2018/02/01",
       "role": "Admin",
-      "status": "Inativo",
+      "status": "Inactive",
       "username": "ebbe.gemariah"
     },
     {
       "id": 14,
-      "name": "Eustorgios Amulius",
+      "fullname": "Eustorgios Amulius",
       "registered": "2018/03/01",
-      "role": "Membro",
-      "status": "Pendente",
+      "role": "Member",
+      "status": "Pending",
       "username": "eustorgios.amulius"
     },
     {
       "id": 15,
-      "name": "Leopold Gáspár",
+      "fullname": "Leopold Gáspár",
       "registered": "2018/01/21",
       "role": "Staff",
-      "status": "Ativo",
+      "status": "Active",
       "username": "leopold.gaspár"
     },
     {
       "id": 16,
-      "name": "Pompeius René",
+      "fullname": "Pompeius René",
       "registered": "2018/01/01",
-      "role": "Membro",
-      "status": "Ativo",
+      "role": "Member",
+      "status": "Active",
       "username": "pompeius.rené"
     },
     {
       "id": 17,
-      "name": "Pacjo Jadon",
+      "fullname": "Pacjo Jadon",
       "registered": "2018/02/01",
       "role": "Staff",
-      "status": "Banido",
+      "status": "Banned",
       "username": "pacjo.jadon"
     },
     {
       "id": 18,
-      "name": "Micheal Mercurius",
+      "fullname": "Micheal Mercurius",
       "registered": "2018/02/01",
       "role": "Admin",
-      "status": "Inativo",
+      "status": "Inactive",
       "username": "micheal.mercurius"
     },
     {
       "id": 19,
-      "name": "Ganesha Dubhghall",
+      "fullname": "Ganesha Dubhghall",
       "registered": "2018/03/01",
-      "role": "Membro",
-      "status": "Pendente",
+      "role": "Member",
+      "status": "Pending",
       "username": "ganesha.dubhghall"
     },
     {
       "id": 20,
-      "name": "Hiroto Simun",
+      "fullname": "Hiroto Simun",
       "registered": "2018/01/21",
       "role": "Staff",
-      "status": "Ativo",
+      "status": "Active",
       "username": "hiroto.simun"
     },
     {
       "id": 21,
-      "name": "Vishnu Serghei",
+      "fullname": "Vishnu Serghei",
       "registered": "2018/01/01",
-      "role": "Membro",
-      "status": "Ativo",
+      "role": "Member",
+      "status": "Active",
       "username": "vishnu.serghei"
     },
     {
       "id": 22,
-      "name": "Zbynek Phoibos",
+      "fullname": "Zbynek Phoibos",
       "registered": "2018/02/01",
       "role": "Staff",
-      "status": "Banido",
+      "status": "Banned",
       "username": "zbynek.phoibos"
     },
     {
       "id": 23,
-      "name": "Aulus Agmundr",
+      "fullname": "Aulus Agmundr",
       "registered": "2018/01/01",
-      "role": "Membro",
-      "status": "Pendente",
+      "role": "Member",
+      "status": "Pending",
       "username": "aulus.agmundr"
     }
   ],
   "statususers": [
     {
       "id": 0,
-      "description": "Ativo"
+      "description": "Active"
     },
     {
       "id": 1,
-      "description": "Inativo"
+      "description": "Inactive"
     },
     {
       "id": 2,
-      "description": "Pendente"
+      "description": "Pending"
     },
     {
       "id": 3,
-      "description": "Banido"
+      "description": "Banned"
+    }
+  ],
+  "profiles": [
+    {
+      "id": 0,
+      "description": "Owner"
+    },
+    {
+      "id": 1,
+      "description": "Driver"
+    },
+    {
+      "id": 2,
+      "description": "Office"
+    }
+  ],
+  "companies": [
+    {
+      "id": 0,
+      "description": "Company 1"
+    },
+    {
+      "id": 1,
+      "description": "Company 2"
+    },
+    {
+      "id": 2,
+      "description": "Company 3"
     }
   ]
 }

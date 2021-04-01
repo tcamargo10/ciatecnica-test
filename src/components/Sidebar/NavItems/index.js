@@ -14,11 +14,11 @@ const NavItems = [
   },
   {
     _tag: "CSidebarNavTitle",
-    _children: ["MENUS"],
+    _children: ["MENU"],
   },
   {
     _tag: "CSidebarNavItem",
-    name: "Usuários",
+    name: "Users",
     to: "/users",
     icon: "cil-user",
   },

@@ -1,42 +1,87 @@
-import React from "react";
-import { CCard, CCardBody, CCardHeader, CCol, CRow } from "@coreui/react";
-import CIcon from "@coreui/icons-react";
-
-import { usersData } from "./UsersData";
+import React, { useState, useEffect } from "react";
+import {
+  CCard,
+  CCardBody,
+  CCardHeader,
+  CCol,
+  CFormGroup,
+  CNav,
+  CNavItem,
+  CNavLink,
+  CRow,
+  CTabContent,
+  CTabPane,
+  CTabs,
+} from "@coreui/react";
+import api from "../../services/api";
+import FormClient from "../../components/FormClient";
+import FormClientProfile from "../../components/FormClientProfile";
 
 const User = ({ match }) => {
-  const user = usersData.find((user) => user.id.toString() === match.params.id);
-  const userDetails = user
-    ? Object.entries(user)
-    : [
-        [
-          "id",
-          <span>
-            <CIcon className="text-muted" name="cui-icon-ban" /> Not found
-          </span>,
-        ],
-      ];
+  const [loading, setLoading] = useState(true);
+  const [user, setUser] = useState();
+  const [usersStatus, setUsersStatus] = useState([]);
+
+  useEffect(() => {
+    setLoading(true);
+
+    //Busca lista de usuarios na API
+    async function getUsers() {
+      const response = await api.get(`/users/${match.params.id}`);
+
+      if (response.data) {
+        setUser(response.data);
+      }
+    }
+
+    //busca lista de status na API
+    async function getStatusUsers() {
+      const response = await api.get(`/statususers`);
+
+      if (response.data) {
+        setUsersStatus(response.data);
+      }
+
+      setLoading(false);
+    }
+
+    getUsers();
+    getStatusUsers();
+  }, [match.params.id]);
 
   return (
     <CRow>
       <CCol lg={12}>
         <CCard>
-          <CCardHeader>Usuário id: {match.params.id}</CCardHeader>
+          <CCardHeader>User</CCardHeader>
           <CCardBody>
-            <table className="table table-striped table-hover">
-              <tbody>
-                {userDetails.map(([key, value], index) => {
-                  return (
-                    <tr key={index.toString()}>
-                      <td>{`${key}:`}</td>
-                      <td>
-                        <strong>{value}</strong>
-                      </td>
-                    </tr>
-                  );
-                })}
-              </tbody>
-            </table>
+            {!loading ? (
+              <CTabs activeTab="registry">
+                <CNav variant="tabs">
+                  <CNavItem>
+                    <CNavLink data-tab="registry">User Registry</CNavLink>
+                  </CNavItem>
+                  <CNavItem>
+                    <CNavLink data-tab="profile">Profile</CNavLink>
+                  </CNavItem>
+                </CNav>
+                <CTabContent>
+                  <CTabPane data-tab="registry">
+                    <FormClient user={user} usersStatus={usersStatus} />
+                  </CTabPane>
+                  <CTabPane data-tab="profile">
+                    <FormClientProfile user={user} usersStatus={usersStatus} />
+                  </CTabPane>
+                </CTabContent>
+              </CTabs>
+            ) : (
+              <CFormGroup
+                row
+                style={{ alignItems: "center", justifyContent: "center" }}
+              >
+                <div>...loading</div>
+              </CFormGroup>
+            )}
           </CCardBody>
         </CCard>
       </CCol>

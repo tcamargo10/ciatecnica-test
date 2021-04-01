@@ -19,7 +19,7 @@ const HeaderDropdown = () => {
       </CDropdownToggle>
       <CDropdownMenu className="pt-0" placement="bottom-end">
         <CDropdownItem header tag="div" color="light" className="text-center">
-          <strong>Conta</strong>
+          <strong>Account</strong>
         </CDropdownItem>
 
         <CDropdownItem>
