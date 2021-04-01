@@ -30,9 +30,8 @@ const User = ({ match }) => {
 
     //Busca dados do usuario selecionado na API
     async function getUsers() {
-      const response = await api.get(`/users/${match.params.id}`);
-
       if (match.params.id) {
+        const response = await api.get(`/users/${match.params.id}`);
         if (response.data) {
           setUser(response.data);
         }
@@ -85,9 +84,9 @@ const User = ({ match }) => {
       setLoading(false);
     }
 
+    getUsers();
     getProfiles();
     getCompanies();
-    getUsers();
     getStatusUsers();
   }, [match.params.id]);
 

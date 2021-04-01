@@ -292,6 +292,24 @@
       "expire": true,
       "expireDate": "2021-03-01",
       "company": "Company 1"
+    },
+    {
+      "id": 21,
+      "firstname": "thiago",
+      "lastname": "camargo",
+      "fullname": "thiago camargo",
+      "profile": "Owner",
+      "registered": 1617301135084,
+      "status": "Active",
+      "username": "tcamargo",
+      "email": "thiago.camargo@outlook.com",
+      "phone": "12311213121",
+      "cel": "1321321321",
+      "expire": false,
+      "expireDate": null,
+      "company": "Company 1",
+      "password": "",
+      "password2": ""
     }
   ],
   "statususers": [

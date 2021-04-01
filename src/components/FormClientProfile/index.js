@@ -32,7 +32,11 @@ export default function FormClientProfile({
   }
 
   if (user === null || user.id === "") {
-    return <></>;
+    return (
+      <CCardBody>
+        <p>Create or Select a user to change profile data</p>
+      </CCardBody>
+    );
   }
 
   return (
